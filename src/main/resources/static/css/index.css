@@ -8,6 +8,18 @@ body {
     background: url("../img/galaxy_starfield.png");
 }
 
+.diagramHeader {
+    width: 100%;
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+}
+
+.info {
+    z-index: 10000;
+    color: #000;
+}
+
 aside {
     position: absolute;
     left: 90px;
@@ -16,11 +28,16 @@ aside {
     z-index: 10000;
     border: 1px solid #ff6600;
     border-radius: 10px;
-    background-color: #333333;
+    background-color: #333;
     text-align: center;
     padding: 30px 10px;
     box-sizing: border-box;
     pointer-events: auto;
+    display: none;
+}
+
+aside img {
+    width: 30%;
 }
 
 aside h2 {
@@ -41,9 +58,17 @@ aside input {
     color: #fff;
 }
 
-::-moz-placeholder { color: #ccc; }
-::-webkit-input-placeholder { color:#ccc; }
-:-ms-input-placeholder { color:#ccc; }
+::-moz-placeholder {
+    color: #ccc;
+}
+
+::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+:-ms-input-placeholder {
+    color: #ccc;
+}
 
 aside button.btn {
     margin-top: 20px;
@@ -57,35 +82,77 @@ aside button.btn:hover {
     color: #ff6600;
 }
 
+aside button.btn:focus {
+    background-color: #666;
+    color: #ff6600;
+}
+
 #modal {
     position: absolute;
     top: 50px;
-    left: 400px;
-    width: 600px;
+    margin-left: 100px;
+    width: 100%;
     /*border: 1px solid #ff6600;*/
     box-sizing: border-box;
+    height: 650px;
+    overflow: scroll;
+    z-index: 9999;
+
 }
 
-#modal2 {
+#modal2, #modal3 {
+    position: absolute;
+    top: 50px;
+    margin-left: 100px;
+    width: 100%;
+    /*border: 1px solid #ff6600;*/
+    /*box-sizing: border-box;*/
+    height: 650px;
+    overflow: scroll;
+    z-index: 9999;
+    /*background-color: #333333;*/
+}
+
+#modalLabel, #about, #famous {
+    color: #FF6600;
+}
+
+/*#modal2 {
     position: absolute;
     top: 50px;
     left: 400px;
     width: 600px;
-    /*border: 1px solid #ff6600;*/
+    border: 1px solid #ff6600;
     box-sizing: border-box;
-
 }
 #modal3 {
     position: absolute;
     top: 50px;
     left: 400px;
     width: 600px;
-    /*border: 1px solid #ff6600;*/
+    border: 1px solid #ff6600;
     box-sizing: border-box;
 
+}*/
+.modal .modal-body {
+    height: 500px;
+    overflow: scroll;
+    color: #CCCCCC;
+
 }
-.modal-body {
-  height: 400px;
+
+.modal2 .modal-body {
+    height: 500px;
+    overflow: scroll;
+    background-color: #333333;
+    color: #CCCCCC;
+}
+
+.modal3 .modal-body {
+    height: 500px;
+    overflow: scroll;
+    background-color: #333333;
+    color: #CCCCCC;
 }
 
 #language {
@@ -94,11 +161,11 @@ aside button.btn:hover {
     right: 100px;
     width: 120px;
     height: 30px;
-    display: inline-block;
+    display: none;
 }
 
 #chartArea {
-    height: 400px;
+    height: 100%;
     width: 600px;
 }
 
@@ -123,6 +190,7 @@ select option {
     padding: 4px 10px 4px 10px;
     font-size: 14px;
     font-weight: normal;
+    box-sizing: border-box;
 }
 
 select option[selected] {
@@ -169,4 +237,73 @@ select:focus {
     background-color: #FFF;
     color: #AAA;
     cursor: auto;
+}
+
+#webgl {
+    margin-left: 20%;
+    width: 80%;
+}
+
+#modal .modal-header, #modal2 .modal-header, #modal3 .modal-header {
+    background: #000;
+    border: 1px solid #ff6600;
+    color: #ff6600;
+}
+
+#modal .modal-content {
+    border: 1px solid #ff6600;
+}
+
+#modal .modal-header button {
+    color: #ff6600;
+}
+
+#modal2 .modal-header button, #modal3 .modal-header button {
+    color: #ff6600;
+}
+
+#modal2 .modal-body, #modal3 .modal-body {
+    background-color: #333;
+    border: 1px solid #ff6600;
+}
+
+#modal2 .modal-body h5 a, #modal3 .modal-body h5 {
+    color: #ff6600;
+}
+
+#modal2 .modal-body p, #modal3 .modal-body p {
+    color: #ccc;
+}
+
+@media screen and (max-width: 400px) {
+
+    #modal, #modal2, #modal3 {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    #chartArea {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .modal .modal-body {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .modal2 .modal-body {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .modal3 .modal-body {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    #webgl {
+        margin-left: 0;
+        width: 100%;
+    }
 }

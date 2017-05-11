@@ -101,7 +101,6 @@ public class MongodbUtils {
         FindIterable<Document> findIterable = earthquakeInfoCollection.find(queryObject);
         MongoCursor<Document> mongoCursor = findIterable.iterator();
         ArrayList<DepthDataBean> depthDataBeans = new ArrayList<>();
-        int i = 0;
         while (mongoCursor.hasNext()) {
 
             Document result = mongoCursor.next();
@@ -116,13 +115,10 @@ public class MongodbUtils {
                 depthDataBean.setTime((long) properties.get("time"));
                 depthDataBean.setAlert((String) properties.get("alert"));
                 depthDataBean.setPlace((String) properties.get("place"));
-                System.out.println(depthDataBean);
                 depthDataBeans.add(depthDataBean);
             }
 
         }
-
-        System.out.println(i);
 
         return depthDataBeans;
     }
@@ -151,6 +147,7 @@ public class MongodbUtils {
             dotGeoDataBean.setPlace((String) properties.get("place"));
             dotGeoDataBean.setAlert((String) properties.get("alert"));
             dotGeoDataBean.setTime((long) properties.get("time"));
+            dotGeoDataBean.setIso3((String) properties.get("iso3"));
 
             dotGeoDataBeans.add(dotGeoDataBean);
         }

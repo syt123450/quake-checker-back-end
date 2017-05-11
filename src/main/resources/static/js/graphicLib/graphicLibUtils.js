@@ -9,7 +9,7 @@
 
 //base class for diagram
 var ChartDiagram = function () {
-	this.color = "#4444ff";
+	this.color = "#ff6600";
 	this.backgroundColor = "#000000";
 	this.fillingColor = "#666";
 
@@ -283,11 +283,13 @@ DotDiagram.prototype.addMap = function (iso3) {
 			data.forEach(drawMap);
 		} else {
 
+
 			g.append("path").attr("class", "mapline")
 				.attr("d", linecoord(data))
-				.attr("fill", "pink")
+				.attr("fill", "#29abe2")
 				.attr("stroke", "black")
-				.attr("stroke-width", "2");
+				.attr("stroke-width", "2")
+				.attr("opacity","0.3");
 		}
 	}
 	d3.json("https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson", function (data) {
@@ -766,6 +768,7 @@ BarDiagram.prototype.render = function (method) {
 		.attr("width", this.xAxis.bandwidth())
 		.attr("height", this.bHeight(groupHeight, this.yAxis)) //function(d){ return groupHeight-y(d.counts);})
 		.attr("fill", this.color)
+		.attr("opacity",0.8)
 		.on("mouseover", this.changeColor("red"))
 		.on("mouseout", this.changeColor(this.color));
 

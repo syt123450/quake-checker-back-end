@@ -57,10 +57,10 @@ function buildEarthModel(width,height,localizationLog,length) {
 	
 	var earth = new Earth();
     
-    camera.position.z = 1.5;
+    camera.position.z = IS_EARTH_IN_MOBILE?2:1.5;
 	earth.scene.add(camera);
     
-    var controls = new THREE.TrackballControls(camera);
+    var controls = new THREE.TrackballControls(camera,webglEl);
 	earth.createObject(localizationLog);
 
 	//scene.add(earth.object);
@@ -223,6 +223,7 @@ function Dot(lat,lon,mag,dep){
 	this.material.opacity=0.7;
 	this.material.needUpdate=true;
 	this.mesh = new THREE.Mesh(this.geo,this.material);
+	this.mesh.position.z=-0.001;
 	var object = new THREE.Object3D(); 
 	object.add(this.mesh);
 	this.object=object;
@@ -241,21 +242,21 @@ Dot.prototype.animation=function(){
 	var dotGeo=this.geo;
 	//console.log(dotGeo.vertices);
 	var startPositons=this.verticesPos;;
-	
+	var radio=1.5;
 	return (function(){
 		
-		if(dotGeo.vertices[0].z >-0.008){
+		if(dotGeo.vertices[0].z > -0.0045){
 		dotGeo.vertices.forEach(function(vertice){
-			vertice.x= vertice.x*1.03;
-			vertice.y= vertice.y*1.03;
-			vertice.z -=.001;
+			vertice.x= vertice.x*radio;
+			vertice.y= vertice.y*radio;
+			vertice.z -=0.001;
 			
 		})
 		}else{
 			dotGeo.vertices.forEach(function(vertice,i){
-			vertice.x= vertice.x/1.01/1.01/1.01;
-			vertice.y= vertice.y/1.01/1.01/1.01;
-			vertice.z +=0.008;
+			vertice.x= vertice.x/radio;
+			vertice.y= vertice.y/radio;
+			vertice.z +=0.001;
 			
 		})
 		}

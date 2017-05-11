@@ -15,4 +15,5 @@ public class DotGeoDataBean {
     private double lng;
     private String alert;
     private long time;
+    private String iso3;
 }

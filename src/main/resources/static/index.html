@@ -3,20 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earth</title>
-    <style>
-        /*html{width: 100%; height: 100%;}*/
-        /*body { width: 100%; height: 100%;margin: 0; overflow: hidden; background-color: #000; }*/
-        /*#webgl {*/
-        /*width: 100px;*/
-        /*height: 100px;*/
-        /*}*/
-        /*.webgl-error { font: 15px/30px monospace; text-align: center; color: #fff; margin: 50px; }*/
-        /*.webgl-error a { color: #fff; }*/
+    <title>Earthquake Checker - Live Earthquake Heat Map</title>
+    <meta name="description"
+          content="Earthquake Checker collects earthquake data from USGS, shows these information on a 3D earth model with graphical analysis. "/>
 
-    </style>
-
-    <link rel='icon' href='img/logo_black.ico' type=‘image/x-ico’>
+    <link rel='icon' href='img/logo_black.ico' type='image/x-ico' title='Earthquake Checker Small Logo'>
     <script src="js/resource/jquery.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/resource/bootstrap.min.js"></script>
@@ -24,7 +15,7 @@
     <script src="js/resource/TrackballControls.js"></script>
 
     <link rel="stylesheet" href="css/index.css">
-
+    <link rel="stylesheet" href="css/indexMobile.css">
 
     <script src="./js/resource/d3.min.js"></script>
     <script src="js/threeLib/threeLibUtils.js"></script>
@@ -32,25 +23,41 @@
     <script src="js/graphicLib/graphicLibUtils.js"></script>
     <script src="js/graphicLib/graphicLibGateway.js"></script>
     <script src="js/index.js"></script>
-    <script src="js/pagination.js"></script>
+    <script src="js/resource/pagination.js"></script>
+    <script src="js/text.js"></script>
+    <script src="js/localization.js"></script>
     <script src="testgraphicdata/dotdata.js"></script>
 
 </head>
 <body>
 
+<img id="smallIcon" src="img/logo.png" title='Small Earthquake Checker Logo'
+     alt='Small Logo of Earthquake Checker website'>
+
+<nav id="hideNav">
+    <h2></h2>
+    <input type="text" placeholder="">
+    <button id="smallButton1" class="btn" data-toggle="modal" data-target="#modal"></button>
+    <button id="smallButton2" class="btn" data-toggle="modal" data-target="#modal2"></button>
+    <button id="smallButton3" class="btn" data-toggle="modal" data-target="#modal3"></button>
+    <div>
+        <select name="type" title="Select Language">
+            <option value=""></option>
+            <option value="english"></option>
+            <option value="chinese"></option>
+        </select>
+    </div>
+</nav>
+
+<div id="curtain"></div>
+
 <aside>
-    <img style="width: 60px;" src="img/logo.png">
-    <h2>Search Country</h2>
-    <input type="text" placeholder="Country">
-    <button id="button1" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal">
-        See Info
-    </button>
-    <button id="button2" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal2">
-        Famous Earthquake
-    </button>
-    <button id="button3" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal3">
-        About Us
-    </button>
+    <img src="img/logo.png" title="Earthquake Checker Logo" alt="Logo of Earthquake Checker website">
+    <h2></h2>
+    <input type="text" placeholder="">
+    <button id="button1" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal"></button>
+    <button id="button2" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal2"></button>
+    <button id="button3" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal3"></button>
 </aside>
 
 <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -60,9 +67,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <h4 class="modal-title" id="modalLabel">
-                    Country Earthquake Analysis
-                </h4>
+                <h4 class="modal-title" id="modalLabel"></h4>
             </div>
             <div id="chartArea" class="modal-body">
             </div>
@@ -73,69 +78,32 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="modal2" role="dialog">
     <div class="modal-dialog">
-
-        <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">6 Famous Earthquakes</h4>
+                <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
 
-                <h5><a href="https://en.wikipedia.org/wiki/1906_San_Francisco_earthquake">1. San Francisco, California:
-                    April 18, 1906 (Magnitude: About 8)</a></h5>
-                <p>In response to growing forces on the Pacific and North American tectonic plates, a horizontal slip
-                    amounting to several yards occurred suddenly at 5:12 A.M. local time on the San Andreas Fault for a
-                    distance of more than 248 miles (400 kilometers). It went through the city and far outside it, down
-                    to a depth of about 6 miles (10 kilometers). This was one of the rare earthquakes in which the fault
-                    slip was easily visible at the Earth's surface. Brick buildings in the city collapsed. Even though
-                    most of the wooden frame buildings survived the strong shaking, they did not survive the fires that
-                    burned for days over several hundred city blocks. The fires caused most of the death toll — about
-                    500 people.</p>
+                <h5><a href="https://en.wikipedia.org/wiki/1906_San_Francisco_earthquake"></a></h5>
+                <p></p>
 
-                <h5><a href="https://en.wikipedia.org/wiki/1923_Great_Kant%C5%8D_earthquake">2. Tokyo, Japan: September
-                    1, 1923 (Magnitude: About 8.25)</a></h5>
-                <p>In the years following the San Francisco disaster, a young Japanese seismologist tried to persuade
-                    his older colleagues that Tokyo should be prepared for another earthquake like the one in 1703 that
-                    had been very destructive. His warnings were not heeded, and in 1923 a great earthquake caused
-                    extensive damage in Yokohama and Tokyo by direct shaking and by fires. About 140,000 people
-                    died.</p>
+                <h5><a href="https://en.wikipedia.org/wiki/1923_Great_Kant%C5%8D_earthquake"></a></h5>
+                <p></p>
 
-                <h5><a href="https://en.wikipedia.org/wiki/1960_Valdivia_earthquake">3. Chile: May 22, 1960 (Magnitude:
-                    About 9)</a></h5>
-                <p>Forces pushing the Pacific and the South American tectonic plates together caused a fault slip of
-                    about 66 feet on a fault surface that was so large — more than 620 miles long and about 124 miles
-                    wide — that we associate this earthquake with an entire country. This was one of the two largest
-                    earthquakes, in terms of seismic moment, in a century. At the time, there were few instruments
-                    operating that could measure very long surface waves. But from the available records, it was
-                    apparent for days after this earthquake that the shock made the whole Earth ring like a gigantic
-                    bell.</p>
+                <h5><a href="https://en.wikipedia.org/wiki/1960_Valdivia_earthquake"></a></h5>
+                <p></p>
 
-                <h5><a href="https://en.wikipedia.org/wiki/1964_Alaska_earthquake">4. Anchorage, Alaska: March 27, 1964
-                    (Magnitude: About 8.5)</a></h5>
-                <p>Growing forces pushing the Pacific and the North American tectonic plates toward each other caused
-                    the Pacific plate to slip about 42 feet at an angle beneath Alaska and beneath the seafloor just
-                    south of the port of Anchorage, which was destroyed. Seismometers that detect surface waves around
-                    the world were knocked off scale for hours. When recording resumed, they were measuring surface
-                    waves that continued to go around the Earth for several days, again as if the whole Earth were
-                    ringing and at exactly the same frequencies as the great Chilean earthquake nearly 4 years earlier.
-                    Large amounts of water were almost immediately moved up or down several yards because the main fault
-                    surface that broke was beneath the ocean floor. This seafloor motion caused a tsunami, or water
-                    wave, that traveled all over the Pacific Ocean, causing further damage, even killing people on a
-                    beach in California.</p>
+                <h5><a href="https://en.wikipedia.org/wiki/1964_Alaska_earthquake"></a></h5>
+                <p></p>
 
-                <h5><a href="https://en.wikipedia.org/wiki/2004_Indian_Ocean_earthquake_and_tsunami">6. Sumatra,
-                    Indonesia, Dec. 26, 2004. (Magnitude: About 9.0)</a></h5>
-                <p>A 9.0 magnitude earthquake — the largest earthquake in 40 years — caused a powerful tsunami in the
-                    Indian Ocean that devastated 12 Asian countries. The earthquake's epicenter was off the west coast
-                    of the Indonesian Island of Sumatra. A week later the death toll was estimated at 150,000 — a month
-                    later some estimate double that number. Hardest hit were Indonesia (particularly the province of
-                    Aceh), Sri Lanka, India, Thailand, and the Maldives. Millions of people lost their homes. Since
-                    entire families and towns were destroyed and bodies were swept out to sea, it's possible we will
-                    never know the total number lives lost.</p>
+                <h5><a href="https://en.wikipedia.org/wiki/1976_Tangshan_earthquake"></a></h5>
+                <p></p>
+
+                <h5><a href="https://en.wikipedia.org/wiki/2004_Indian_Ocean_earthquake_and_tsunami"></a></h5>
+                <p></p>
 
             </div>
 
@@ -146,24 +114,14 @@
 
 <div class="modal fade" id="modal3" role="dialog">
     <div class="modal-dialog">
-
-        <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">About Us</h4>
+                <h4 class="modal-title" id="about"></h4>
             </div>
             <div class="modal-body">
-                <h5>This project is designed to raise attention of the audience on earthquake hazards.</h5>
-                <p>In order to raise awareness of the public, our project has created a 3D earth and historical
-                    earthquake
-                    data points are added to 3D earth accordingly. Graphical analysis of earthquake magnitude v.s. time,
-                    number
-                    of earthquakes v.s. monthly distribution, earthquake magnitude v.s. Geolocation are provided to user
-                    for additional
-                    information . Users can also filter earthquake magnitude and countries information accordingly.
-                    Informations such as
-                    6 famous earthquakes has also been added to the website feature. </p>
+                <h5></h5>
+                <p></p>
             </div>
         </div>
 
@@ -172,41 +130,17 @@
 
 <div id="language">
     <select name="type" title="Select Language">
-        <option value="">Language</option>
-        <option value="english">English</option>
-        <option value="chinese">Chinese</option>
+        <option value=""></option>
+        <option value="english"></option>
+        <option value="chinese"></option>
     </select>
 </div>
 
-<div style="margin-left: 20%;width: 80%;" id="webgl"></div>
+<div id="webgl"></div>
 
 </body>
 
 <script>
-
-    testinggeodata.forEach(function(feature){
-        if(feature.properties.alert){
-            var newitem={};
-            newitem.depth=feature.geometry.coordinates[2];
-            newitem.time=feature.properties.time;
-            newitem.mag=feature.properties.mag;
-            newitem.alert=feature.properties.alert;
-            newitem.place=feature.properties.place;
-            dotdepthdata.push(newitem);}
-    });
-
-    testinggeodata.forEach(function(feature){
-        if(feature.properties.time>(new Date("2016-10-1")).getTime()){
-            var newitem={};
-            newitem.lat=feature.geometry.coordinates[1];
-            newitem.lng=feature.geometry.coordinates[0];
-            newitem.mag=feature.properties.mag;
-            newitem.alert=feature.properties.alert;
-            newitem.place=feature.properties.place;
-            newitem.time=feature.properties.time;
-            dotgeodata.push(newitem);
-        }
-    });
 
     renderPagination(20, 1);
 
@@ -218,84 +152,23 @@
         "depthData": "/API/depthData"
     };
 
-    var top10Data = [{country: 'United States', counts: 600},
-        {country: 'China', counts: 400},
-        {country: 'Russia', counts: 200},
-        {country: 'Japan', counts: 200},
-        {country: 'United Kindom', counts: 200},
-        {country: 'Indianisia', counts: 200},
-        {country: 'blahblahblah', counts: 200},
-        {country: 'blah1', counts: 200},
-        {country: 'blah2', counts: 200},
-        {country: 'blah3', counts: 200}];
+    var Global_Country_Name = "Japan";
 
-    GraphicChart.createGeoDotChart(dotgeodata,"#chartArea",null,"geo diagram","JPN");
-//    GraphicChart.createTop10PieChart(top10Data, "#chartArea", null, "top 10");
+    GraphicChart.createGeoDotChart(dotgeodata, "#chartArea", null, "geo diagram", "JPN");
 
-    function renderPage(pageNumber) {
-//        $.ajax({
-//            url: '../store/product',
-//            type: 'POST',
-//            contentType: "application/json; charset=utf-8",
-//            async: true,
-//            data: JSON.stringify({"storeID": getUrlParameter("storeID"), "pageID": pageNumber}),
-//            dataType: 'json',
-//            success: function (productListData) {
-//                console.log(productListData);
-//                renderProductList(productListData.productList);
-//                renderPagination(productListData.productNumber, productListData.pageID);
-//                bindClickButton();
-//                bindLink();
-//            }
-//        });
-
-        GraphicChart.removeAll();
-
-        if (pageNumber == 1) {
-            GraphicChart.createGeoDotChart(dotgeodata,"#chartArea",null,"geo diagram","JPN");
-        } else if (pageNumber == 2) {
-            GraphicChart.createDepthDotChart(dotdepthdata,"#chartArea",null,"depth diagram");
-        } else if (pageNumber == 3) {
-            GraphicChart.createTop10PieChart(top10Data, "#chartArea", null, "top 10");
-        } else {
-            GraphicChart.createYearlyBarChart(yearlydata,"#chartArea", null," yearly report");
-        }
-
-        renderPagination(20, pageNumber);
-    }
-
-    var yearlydata=[
-        {month:"Jan",counts:300},
-        {month:"Feb",counts:340},
-        {month:"Mar",counts:500},
-        {month:"Apr",counts:366},
-        {month:"May",counts:500},
-        {month:"Jun",counts:345},
-        {month:"Jul",counts:390},
-        {month:"Aug",counts:600},
-        {month:"Sep",counts:432},
-        {month:"Oct",counts:501},
-        {month:"Nov",counts:600},
-        {month:"Dev",counts:483}
-    ];
-    //
-    //GraphicChart.createYearlyBarChart(yearlydata,"#chartArea", null," yearly report");
-
-    var seasonaldata=[
-        {dayrange:"1/1-1/10",counts:390},
-        {dayrange:"1/11-1/20",counts:300},
-        {dayrange:"1/21-1/30",counts:320},
-        {dayrange:"1/31-2/9",counts:308},
-        {dayrange:"2/10-2/19",counts:330},
-        {dayrange:"2/20-3/1",counts:350},
-        {dayrange:"3/2-3/11",counts:500},
-        {dayrange:"3/12-3/21",counts:300},
-        {dayrange:"3/22-3/31",counts:300}
-    ];
-    //
-    //GraphicChart.createSeasonalBarChart(seasonaldata,"#chartArea", null," seasonal report");
-    //
-    //GraphicChart.createDepthDotChart(dotdepthdata,"#chartArea",null,"depth diagram");
+    var getDiagramData = function (url, method, inputData, chartCreation, heading) {
+        $.ajax({
+            url: url,
+            type: method ? method : "GET",
+            contentType: "application/json; charset=utf-8",
+            async: true,
+            data: data,
+            dataType: 'json',
+            success: function (data) {
+                chartCreation(data, "#chartArea", null, heading, data[0].iso3);
+            }
+        });
+    };
 
 </script>
 

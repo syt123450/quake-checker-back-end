@@ -81,6 +81,7 @@ GraphicChart.createDepthDotChart=function(data,parentSelector,margin,heading){
  * Create dot base on latitude and longitude
  */
 GraphicChart.createGeoDotChart=function(data,parentSelector,margin,heading,country_abbr){
+
     var geochart=new DotDiagram().data(data).container(parentSelector);
     GraphicChart.charts.push(geochart);
     	if(margin){
@@ -94,8 +95,6 @@ GraphicChart.createGeoDotChart=function(data,parentSelector,margin,heading,count
 
     if(country_abbr){
         geochart.addMap(country_abbr);
-    }else{
-        geochart.render();
     }
     return geochart;
 

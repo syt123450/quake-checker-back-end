@@ -27,13 +27,13 @@ public class MongodbUtilsTest {
     @Test
     @Ignore
     public void testGetDotGeoData() {
-        System.out.println(MongodbUtils.getDotGeoData("United States"));
+        System.out.println(MongodbUtils.getDotGeoData("United States").get(0));
     }
 
     @Test
     @Ignore
     public void testYearlyData(){
-        System.out.println(MongodbUtils.getYearlyData("Japan"));
+        System.out.println(MongodbUtils.getYearlyData("美国"));
     }
 
     @Test

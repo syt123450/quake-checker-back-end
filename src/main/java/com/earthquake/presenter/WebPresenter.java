@@ -30,7 +30,7 @@ public class WebPresenter {
     private Logger logger = Logger.getLogger(WebPresenter.class);
     private Gson gson = new GsonBuilder().create();
 
-    @RequestMapping(value = "/Initialize", method = RequestMethod.POST)
+    @RequestMapping("/Initialize")
     private String getInitialData() {
 
         ArrayList<ArrayList<ArrayList<Double>>> monthList =  dataProvider.getInitiatedData();
@@ -51,10 +51,15 @@ public class WebPresenter {
     @RequestMapping(value = "/DotData", method = RequestMethod.POST)
     private String getDotData(@RequestBody String body) {
 
+        logger.info("accept dotData request");
+
         CountryBean countryBean = gson.fromJson(body, CountryBean.class);
         String countryName = countryBean.getCountryName();
 
         ArrayList<DotGeoDataBean> dotGeoDataBeans = dataProvider.getDotGeoData(countryName);
+
+        logger.info(dotGeoDataBeans);
+
         String response = gson.toJson(dotGeoDataBeans);
 
         return response;
