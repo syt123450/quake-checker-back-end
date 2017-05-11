@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		
+		<title>Sample four temple to create svg </title>
+		<script src="./js/resource/jquery.min.js"></script>
+		<script src="./js/resource/d3.min.js"></script>
+		<script src="./js/graphicLib/graphicLibGateway.js"></script>
+		<script src="./js/graphicLib/graphicLibUtils.js"></script>
+		<script src="./testgraphicdata/dotdata.js"></script>
+
+		<style>
+			body{
+				
+				margin:1%
+			}
+			div{
+				width:80%;
+				//height:50vh;
+				border-style: solid;
+				display:block;
+				margin:auto;
+			}
+			.info{
+				position:absolute;
+				border-style:hidden;
+				background-color: "white";
+			}
+
+		</style>
+		<!-- <script src="./library/test.js"></script> -->
+	</head>
+	<body>
+		<button>delete graphic</button>
+		<div id="top10"></div>
+		<div id="depthDot">1</div>
+		<div id="second">2</div>
+		<div id="yearly">3</div>
+		<div id ="seasonal"></div>
+
+		<script>
+
+		testinggeodata.forEach(function(feature){
+			if(feature.properties.time>(new Date("2016-10-1")).getTime()){
+			var newitem={};
+			newitem.lat=feature.geometry.coordinates[1];
+			newitem.lng=feature.geometry.coordinates[0];
+			newitem.mag=feature.properties.mag;
+			newitem.alert=feature.properties.alert;
+			newitem.place=feature.properties.place;
+			newitem.time=feature.properties.time;
+			dotgeodata.push(newitem);
+		}
+		});
+
+		testinggeodata.forEach(function(feature){
+			if(feature.properties.alert){
+			var newitem={};
+			newitem.depth=feature.geometry.coordinates[2];
+			newitem.time=feature.properties.time;
+			newitem.mag=feature.properties.mag;
+			newitem.alert=feature.properties.alert;
+			newitem.place=feature.properties.place;
+			dotdepthdata.push(newitem);}
+		});
+		
+		var top10Data=[{country:'United States', counts:600},
+					  {country:'China', counts:400},
+					  {country:'Russia', counts:200},
+					  {country:'Japan', counts:200},
+					  {country:'United Kindom', counts:200},
+					  {country:'Indianisia', counts:200},
+					  {country:'blahblahblah', counts:200},
+					  {country:'blah1', counts:200},
+					  {country:'blah2', counts:200},
+					  {country:'blah3', counts:200}];
+			
+		var yearlydata=[
+						{month:"Jan",counts:300},
+						{month:"Feb",counts:340},
+						{month:"Mar",counts:500},
+						{month:"Apr",counts:366},
+						{month:"May",counts:500},
+						{month:"Jun",counts:345},
+						{month:"Jul",counts:390},
+						{month:"Aug",counts:600},
+						{month:"Sep",counts:432},
+						{month:"Oct",counts:501},
+						{month:"Nov",counts:600},
+						{month:"Dev",counts:483}
+						];
+		
+		var seasonaldata=[
+				{dayrange:"1/1-1/10",counts:390},
+				{dayrange:"1/11-1/20",counts:300},
+				{dayrange:"1/21-1/30",counts:320},
+				{dayrange:"1/31-2/9",counts:308},
+				{dayrange:"2/10-2/19",counts:330},
+				{dayrange:"2/20-3/1",counts:350},
+				{dayrange:"3/2-3/11",counts:500},
+				{dayrange:"3/12-3/21",counts:300},
+				{dayrange:"3/22-3/31",counts:300}
+				];
+			
+		//console.log(yearlydata[0]);
+		//console.log(GraphicChart.createYearlyBarChart);
+			
+		GraphicChart.createDepthDotChart(dotdepthdata,"#depthDot",null,"depth diagram");
+		//console.log(GraphicChart.charts[0]);
+			
+		GraphicChart.createGeoDotChart(dotgeodata,"#second",null,"geo diagram","JPN");
+
+		window.addEventListener("resize",GraphicChart.update);
+
+		GraphicChart.createTop10PieChart(top10Data,"#top10",null,"top 10");
+		GraphicChart.createYearlyBarChart(yearlydata,"#yearly", null," yearly report");
+		GraphicChart.createSeasonalBarChart(seasonaldata,"#seasonal", null," seasonal report");
+
+		$("button").click(function(){
+			GraphicChart.removeAll();
+		});
+
+		</script> 
+		<script>
+			
+		</script>
+	</body>
+
+</html>
